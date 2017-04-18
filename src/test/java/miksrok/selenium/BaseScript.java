@@ -8,6 +8,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +19,7 @@ public abstract class BaseScript {
 
     private final static String CHROME_PATH = "src\\test\\resources\\chromedriver.exe";
     private final static String FIREFOX_PATH = "src\\main\\resources\\geckodriver.exe";
+
 
     private static WebDriver getDriver(String browser) {
 
@@ -32,6 +34,7 @@ public abstract class BaseScript {
             }
         }
     }
+    @Parameters("browser")
     public static EventFiringWebDriver getConfiguredDriver(String browser) {
         WebDriver driver = getDriver(browser);
         driver.manage().window().maximize();

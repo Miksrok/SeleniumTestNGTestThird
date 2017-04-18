@@ -2,7 +2,10 @@
 
 <suite name="Products Management" verbose="1" >
     <test name="Create New Product [Chrome]" >
-        <!--configure test to execute testing script using Chrome browser-->
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="miksrok.selenium.tests.GeneralTest"/>
+        </classes>
     </test>
 
     <!--Prepare test for firefox and IE browsers-->
