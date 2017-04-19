@@ -3,6 +3,7 @@ package miksrok.selenium.tests;
 import miksrok.selenium.BaseScript;
 import miksrok.selenium.pages.AdminPage;
 import miksrok.selenium.pages.UserPage;
+import miksrok.selenium.util.DataProv;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -12,12 +13,9 @@ import org.testng.annotations.Test;
 public class GeneralTest extends BaseScript {
     private AdminPage adminPage;
     private UserPage userPage;
-    private static String login = "webinar.test@gmail.com";
-    private static String password = "Xcg7299bnSmMuRLp9ITw";
 
-
-    @Test
-    public void loginTest(){
+    @Test(dataProvider = "getAuthorizationData", dataProviderClass = DataProv.class)
+    public void loginTest(String login, String password){
         loginPage.openLoginPage();
         adminPage = loginPage.login(login, password);
     }

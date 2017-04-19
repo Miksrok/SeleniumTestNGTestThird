@@ -1,8 +1,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Products Management" verbose="1" >
-    <test name="Create New Product [Chrome]" >
-        <parameter name="browser" value="chrome"/>
+    <test name="Create [Chrome]" >
+        <parameter name="chrome" value="chrome"/>
+        <classes>
+            <class name="miksrok.selenium.tests.GeneralTest"/>
+        </classes>
+    </test>
+
+    <test name="Create New Product [Firefox]" >
+        <parameter name="firefox" value="firefox"/>
         <classes>
             <class name="miksrok.selenium.tests.GeneralTest"/>
         </classes>

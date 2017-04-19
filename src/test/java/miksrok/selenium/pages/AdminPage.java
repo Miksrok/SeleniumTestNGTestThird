@@ -22,7 +22,7 @@ public class AdminPage {
     private By productLink = By.cssSelector("#subtab-AdminProducts");
     private By newProductButton = By.cssSelector("#page-header-desc-configuration-add");
     private By productName = By.cssSelector("#form_step1_name_1");
-    private By producrQty = By.cssSelector("#form_step1_qty_0_shortcut");
+    private By productQty = By.cssSelector("#form_step1_qty_0_shortcut");
     private By productPrice = By.cssSelector("#form_step1_price_shortcut");
     private By activateProduct = By.cssSelector(".switch-input ");
     private By activateMessage = By.cssSelector("#growls .growl-message");
@@ -55,12 +55,13 @@ public class AdminPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(this.productName));
         WebElement productName = driver.findElement(this.productName);
         productName.sendKeys(product.getName());
-        WebElement producrQty = driver.findElement(this.producrQty);
-        producrQty.clear();
-        producrQty.sendKeys(product.getQty()+"");
+        WebElement productQty = driver.findElement(this.productQty);
+        productQty.sendKeys(Keys.BACK_SPACE);
+        productQty.sendKeys(product.getQty()+"");
         WebElement productPrice = driver.findElement(this.productPrice);
-        productPrice.clear();
-        productPrice.sendKeys(Keys.BACK_SPACE);
+        for (int i = 0; i<10 ; i++){
+            productPrice.sendKeys(Keys.BACK_SPACE);
+        }
         productPrice.sendKeys(product.getPrice());
     }
 
@@ -70,14 +71,12 @@ public class AdminPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(this.activateMessage));
         WebElement activateMessage = driver.findElement(this.activateMessage);
         WebElement activateMessageClose = driver.findElement(this.activateMessageClose);
-        System.out.println(activateMessage.getText());
         activateMessageClose.click();
         WebElement saveButton = driver.findElement(this.saveButton);
         saveButton.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(this.activateMessage));
         WebElement activateMessageSecond = driver.findElement(this.activateMessage);
         WebElement activateMessageCloseSecond = driver.findElement(this.activateMessageClose);
-        System.out.println(activateMessageSecond.getText());
         activateMessageCloseSecond.click();
         return new UserPage(driver, product);
     }

@@ -19,7 +19,7 @@ public class UserPage {
     private String userPage = "http://prestashop-automation.qatestlab.com.ua";
     private By allProductLink = By.cssSelector(".all-product-link");
     private By name = By.xpath("//h1[@itemprop='name']");
-    private By qty = By.xpath("//div[@class='product-quantities']/span");
+    private By qty = By.xpath("//div[@class='product-quantities']");
     private By price = By.xpath("//span[@itemprop='price']");
 
     public UserPage(WebDriver driver, Product product) {
@@ -48,7 +48,7 @@ public class UserPage {
     public boolean equalsQty(){
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(this.qty));
-        WebElement elem = driver.findElement(this.qty);
+        WebElement elem = driver.findElement(By.xpath("//div[@class='product-quantities']/span"));
         String tmp = elem.getText();
         String [] arr = tmp.split(" ");
         return arr[0].equals(product.getQty()+"");

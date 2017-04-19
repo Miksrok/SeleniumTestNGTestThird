@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class BaseScript {
 
     private final String CHROME_PATH = "src\\test\\resources\\chromedriver.exe";
-    private final String FIREFOX_PATH = "src\\main\\resources\\geckodriver.exe";
+    private final String FIREFOX_PATH = "src\\test\\resources\\geckodriver.exe";
 
     private EventFiringWebDriver driver;
     protected LoginPage loginPage;
@@ -38,7 +38,7 @@ public abstract class BaseScript {
     }
 
     @BeforeClass
-    @Parameters("browser")
+    @Parameters("chrome")
     public void setUp(String browser) {
         driver = new EventFiringWebDriver(getDriver(browser));
         driver.register(new EventHandler());
@@ -50,10 +50,10 @@ public abstract class BaseScript {
         loginPage = new LoginPage(driver);
     }
 
-    /*@AfterClass
+    @AfterClass
     public void tearDown() {
         if (driver != null) {
             driver.quit();
         }
-    }*/
+    }
 }
