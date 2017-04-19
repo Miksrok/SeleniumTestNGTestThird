@@ -18,6 +18,9 @@ public class UserPage {
 
     private String userPage = "http://prestashop-automation.qatestlab.com.ua";
     private By allProductLink = By.cssSelector(".all-product-link");
+    private By name = By.xpath("//h1[@itemprop='name']");
+    private By qty = By.xpath("//div[@class='product-quantities']/span");
+    private By price = By.xpath("//span[@itemprop='price']");
 
     public UserPage(WebDriver driver, Product product) {
         this.driver = driver;
@@ -25,44 +28,46 @@ public class UserPage {
         this.product = product;
     }
 
-    public boolean openUserPage(){
+    public void openUserPage(){
         driver.navigate().to(userPage);
+    }
+
+    public void showAllProducts(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(this.allProductLink));
         WebElement allProductLink = driver.findElement(this.allProductLink);
         allProductLink.click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='product-description']/h1/a[contains(text(),'"+product.getName().toLowerCase()+"')]")));
-        WebElement prod = driver.findElement(By.xpath("//div[@class='product-description']/h1/a[contains(text(),'"+product.getName().toLowerCase()+"')]"));
+    }
+
+    public boolean isNewProductIsPresent(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='product-description']/h1/a[contains(text(),'"+product.getName()+"')]")));
+        WebElement prod = driver.findElement(By.xpath("//div[@class='product-description']/h1/a[contains(text(),'"+product.getName()+"')]"));
         prod.click();
         return true;
     }
-    public boolean trueQty(){
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='product-quantities']")));
-        WebElement elem = driver.findElement(By.xpath("//div[@class='product-quantities']/span"));
+    public boolean equalsQty(){
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(this.qty));
+        WebElement elem = driver.findElement(this.qty);
         String tmp = elem.getText();
         String [] arr = tmp.split(" ");
-        System.out.println(arr[0]);
-        System.err.println(product.getQty());
         return arr[0].equals(product.getQty()+"");
 
     }
-    public boolean trueName(){
+    public boolean equalsName(){
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[@itemprop='name']")));
-        WebElement elem = driver.findElement(By.xpath("//h1[@itemprop='name']"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(this.name));
+        WebElement elem = driver.findElement(this.name);
         String name = elem.getText().toLowerCase();
-        System.out.println(name);
         return name.equals(product.getName());
 
     }
-    public boolean truePrice(){
+    public boolean equalsPrice(){
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@itemprop='price']")));
-        WebElement price = driver.findElement(By.xpath("//span[@itemprop='price']"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(this.price));
+        WebElement price = driver.findElement(this.price);
         String pr = price.getAttribute("content");
         pr = pr.replace('.',',');
-        System.out.println(pr);
-        System.err.println(product.getPrice());
         return pr.equals(product.getPrice());
 
     }

@@ -16,6 +16,7 @@ public class AdminPage {
 
     private WebDriver driver;
     private WebDriverWait wait;
+    private Product product;
 
     private By catalogLink = By.id("subtab-AdminCatalog");
     private By productLink = By.cssSelector("#subtab-AdminProducts");
@@ -46,11 +47,11 @@ public class AdminPage {
     }
 
 
-    public UserPage createNewProduct() {
+    public void createNewProduct() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(this.newProductButton));
         WebElement newProductButton = driver.findElement(this.newProductButton);
         newProductButton.click();
-        Product product = Product.generate();
+        product = Product.generate();
         wait.until(ExpectedConditions.visibilityOfElementLocated(this.productName));
         WebElement productName = driver.findElement(this.productName);
         productName.sendKeys(product.getName());
@@ -61,6 +62,9 @@ public class AdminPage {
         productPrice.clear();
         productPrice.sendKeys(Keys.BACK_SPACE);
         productPrice.sendKeys(product.getPrice());
+    }
+
+    public UserPage activateProduct(){
         WebElement activateProduct = driver.findElement(this.activateProduct);
         activateProduct.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(this.activateMessage));
@@ -77,4 +81,5 @@ public class AdminPage {
         activateMessageCloseSecond.click();
         return new UserPage(driver, product);
     }
+
 }
